@@ -3,13 +3,12 @@ import Tasks.*;
 import UtilityClasses.Managers;
 
 public class Main {
+    static TaskManager taskManager =  Managers.getDefault();
     public static void main(String[] args) {
-        TaskManager taskManager =  Managers.getDefault();
-
-        //Создаем 12 задач для проверки истории
+        //Создаем 6 задач для проверки истории
         createTasks((InMemoryTaskManager) taskManager);
         // Выводим в консоль все задачи и историю
-        printAllTasksAndHistory((InMemoryTaskManager) taskManager);
+        checkHistory((InMemoryTaskManager) taskManager);
     }
     private static void createTasks(InMemoryTaskManager manager) {
         manager.createTask(new Task("Обычная задача - 1", "Описание обычной задачи",
@@ -22,45 +21,50 @@ public class Main {
                 manager.getId(), TaskStatus.NEW, 2)); // id = 3
         manager.createSubTask(new SubTask("Подзадача - 2", "Описание подзадачи",
                 manager.getId(), TaskStatus.NEW, 2)); // id = 4
-        manager.createEpicTask(new EpicTask("Эпическая задача - 2", "Описание эпической задачи",
-                manager.getId(), TaskStatus.NEW)); // id = 5
         manager.createSubTask(new SubTask("Подзадача - 3", "Описание подзадачи",
-                manager.getId(), TaskStatus.NEW, 5)); // id = 6
-        manager.createTask(new Task("Обычная задача - 3", "Описание обычной задачи",
-                manager.getId(), TaskStatus.NEW)); // id = 7
-        manager.createEpicTask(new EpicTask("Эпическая задача - 3", "Описание эпической задачи",
-                manager.getId(), TaskStatus.NEW)); // id = 8
-        manager.createSubTask(new SubTask("Подзадача - 4", "Описание подзадачи",
-                manager.getId(), TaskStatus.NEW, 8)); // id = 9
-        manager.createSubTask(new SubTask("Подзадача - 5", "Описание подзадачи",
-                manager.getId(), TaskStatus.NEW, 8)); // id = 10
-        manager.createSubTask(new SubTask("Подзадача - 6", "Описание подзадачи",
-                manager.getId(), TaskStatus.NEW, 8)); // id = 11
+                manager.getId(), TaskStatus.NEW, 2)); // id = 5
+        manager.createEpicTask(new EpicTask("Эпическая задача - 2", "Описание эпической задачи",
+                manager.getId(), TaskStatus.NEW)); // id = 6
+
     }
-    private static void printAllTasksAndHistory(InMemoryTaskManager manager) {
-            Task task;
+    private static void checkHistory(InMemoryTaskManager manager) {
+        //Создаем записи в разном порядке в истории и выводим  4 0 2 1
 
-        for (int i = 0; i < manager.getId(); i++) {
-            if(manager.getTaskMap().containsKey(i)) {
-                task = manager.getTaskById(i);
-                System.out.println(task);
-            }
+        manager.getSubTaskById(4);
+        printHistory(manager);
+        manager.getTaskById(0);
+        printHistory(manager);
+        manager.getEpicTaskById(2);
+        printHistory(manager);
+        manager.getTaskById(1);
+        printHistory(manager);
 
-            if(manager.getEpicTaskMap().containsKey(i)) {
-                task = manager.getEpicTaskById(i);
-                System.out.println(task);
-            }
+        //Смотрим, есть ли повторы
+        manager.getSubTaskById(4);
+        //printHistory(manager);
+        manager.getTaskById(0);
+        printHistory(manager);
+        manager.getEpicTaskById(2);
+        printHistory(manager);
 
-            if(manager.getSubTaskMap().containsKey(i)) {
-                task = manager.getSubTaskById(i);
-                System.out.println(task);
-            }
-        }
+        // Удаляем задачу, которая есть в истории, и проверяем, что при печати она не будет выводиться.
+        manager.deleteTaskById(1);
+        printHistory(manager);
 
+        //Удалием эпик с тремя подзадачами и убеждаемся, что из истории удалился как сам эпик, так и все его подзадачи.
+        //Сначала добавляем подзадачи в историю
+        manager.getSubTaskById(3);
+        manager.getSubTaskById(5);
+        printHistory(manager);
+
+        //Теперь удаляем epic и проверяем историю
+        manager.deleteEpicTaskById(2);
+        printHistory(manager);
+    }
+    private static void printHistory(InMemoryTaskManager manager) {
         System.out.println("\nИстория:");
         for (Task historyTask : manager.getHistoryManager().getHistory()) {
             System.out.println(historyTask);
         }
-
-        }
     }
+}
