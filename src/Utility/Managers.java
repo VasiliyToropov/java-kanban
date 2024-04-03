@@ -1,6 +1,6 @@
 package Utility;
 
-import Historymanagers.*;
+import historymanagers.*;
 import taskmanagers.*;
 
 public class Managers {

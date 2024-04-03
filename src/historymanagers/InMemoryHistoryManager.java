@@ -1,4 +1,4 @@
-package Historymanagers;
+package historymanagers;
 
 import Tasks.Task;
 
@@ -48,7 +48,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        if(historyMap.containsKey(id)) {
+        if (historyMap.containsKey(id)) {
             removeNode(historyMap.get(id));
             historyMap.remove(id);
         }
@@ -58,19 +58,19 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node<Task> prevNode = node.prev;
         Node<Task> nextNode = node.next;
 
-        if(nextNode == null && prevNode == null) {
+        if (nextNode == null && prevNode == null) {
             linkedTasks.tail = null;
             linkedTasks.head = null;
             return;
         }
 
-        if(nextNode == null) {
+        if (nextNode == null) {
             linkedTasks.tail = prevNode;
             prevNode.next = null;
             return;
         }
 
-        if(prevNode == null) {
+        if (prevNode == null) {
             linkedTasks.head = nextNode;
             nextNode.prev = null;
             return;
