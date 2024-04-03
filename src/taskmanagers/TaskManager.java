@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface TaskManager {
-    Task getTaskById(Integer ID);
+    Task getTaskById(Integer id);
 
-    SubTask getSubTaskById(Integer ID);
+    SubTask getSubTaskById(Integer id);
 
-    EpicTask getEpicTaskById(Integer ID);
+    EpicTask getEpicTaskById(Integer id);
 
     void createTask(Task task);
 
