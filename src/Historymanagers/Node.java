@@ -1,4 +1,4 @@
-package HistoryManagers;
+package Historymanagers;
 
 public class Node<E> {
     E item;

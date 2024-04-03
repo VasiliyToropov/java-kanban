@@ -1,6 +1,6 @@
-package taskManagers;
+package Taskmanagers;
 
-import HistoryManagers.*;
+import Historymanagers.*;
 import Tasks.*;
 import Utility.Managers;
 

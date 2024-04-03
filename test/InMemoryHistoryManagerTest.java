@@ -1,5 +1,5 @@
-import HistoryManagers.*;
-import taskManagers.*;
+import Historymanagers.*;
+import Taskmanagers.*;
 import Tasks.*;
 import org.junit.jupiter.api.Test;
 
