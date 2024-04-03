@@ -1,4 +1,4 @@
-package TaskManagers;
+package taskManagers;
 
 import HistoryManagers.*;
 import Tasks.*;
@@ -15,21 +15,21 @@ public class InMemoryTaskManager implements TaskManager {
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
-    public Task getTaskById(Integer ID) {
-        historyManager.addToHistory(taskMap.get(ID));
-        return taskMap.get(ID);
+    public Task getTaskById(Integer id) {
+        historyManager.addToHistory(taskMap.get(id));
+        return taskMap.get(id);
     }
 
     @Override
-    public SubTask getSubTaskById(Integer ID) {
-        historyManager.addToHistory(subTaskMap.get(ID));
-        return subTaskMap.get(ID);
+    public SubTask getSubTaskById(Integer id) {
+        historyManager.addToHistory(subTaskMap.get(id));
+        return subTaskMap.get(id);
     }
 
     @Override
-    public EpicTask getEpicTaskById(Integer ID) {
-        historyManager.addToHistory(epicTaskMap.get(ID));
-        return epicTaskMap.get(ID);
+    public EpicTask getEpicTaskById(Integer id) {
+        historyManager.addToHistory(epicTaskMap.get(id));
+        return epicTaskMap.get(id);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTasks() {
-        for(Integer i: taskMap.keySet()) {
+        for (Integer i: taskMap.keySet()) {
             historyManager.remove(i);
         }
         taskMap.clear();
@@ -87,7 +87,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubTasks() {
-        for(Integer i: subTaskMap.keySet()) {
+        for (Integer i: subTaskMap.keySet()) {
             historyManager.remove(i);
         }
         subTaskMap.clear();
@@ -95,7 +95,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteEpicTasks() {
-        for(Integer i: epicTaskMap.keySet()) {
+        for (Integer i: epicTaskMap.keySet()) {
             historyManager.remove(i);
         }
         epicTaskMap.clear();
