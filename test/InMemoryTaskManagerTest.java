@@ -1,5 +1,5 @@
 import taskmanagers.*;
-import Tasks.*;
+import tasks.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

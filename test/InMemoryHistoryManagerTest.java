@@ -1,6 +1,6 @@
 import historymanagers.*;
 import taskmanagers.*;
-import Tasks.*;
+import tasks.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
