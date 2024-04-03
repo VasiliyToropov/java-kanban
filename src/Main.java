@@ -1,6 +1,6 @@
 import TaskManagers.*;
 import Tasks.*;
-import UtilityClasses.Managers;
+import utilityClasses.Managers;
 
 public class Main {
     static TaskManager taskManager =  Managers.getDefault();
