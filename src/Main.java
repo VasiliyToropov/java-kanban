@@ -41,7 +41,7 @@ public class Main {
 
         //Смотрим, есть ли повторы
         manager.getSubTaskById(4);
-        //printHistory(manager);
+        printHistory(manager);
         manager.getTaskById(0);
         printHistory(manager);
         manager.getEpicTaskById(2);
