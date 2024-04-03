@@ -1,4 +1,4 @@
-package utilityClasses;
+package Utility;
 
 import HistoryManagers.*;
 import TaskManagers.*;

@@ -2,7 +2,7 @@ package TaskManagers;
 
 import HistoryManagers.*;
 import Tasks.*;
-import utilityClasses.Managers;
+import Utility.Managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
