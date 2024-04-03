@@ -1,4 +1,4 @@
-package Taskmanagers;
+package taskmanagers;
 
 import Historymanagers.*;
 import Tasks.*;

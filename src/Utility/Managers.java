@@ -1,7 +1,7 @@
 package Utility;
 
 import Historymanagers.*;
-import Taskmanagers.*;
+import taskmanagers.*;
 
 public class Managers {
     public static TaskManager getDefault() {
