@@ -4,12 +4,14 @@ import utility.Managers;
 
 public class Main {
     static TaskManager taskManager =  Managers.getDefault();
+
     public static void main(String[] args) {
         //Создаем 6 задач для проверки истории
         createTasks((InMemoryTaskManager) taskManager);
         // Выводим в консоль все задачи и историю
         checkHistory((InMemoryTaskManager) taskManager);
     }
+
     private static void createTasks(InMemoryTaskManager manager) {
         manager.createTask(new Task("Обычная задача - 1", "Описание обычной задачи",
                 manager.getId(), TaskStatus.NEW)); // id = 0
@@ -25,8 +27,8 @@ public class Main {
                 manager.getId(), TaskStatus.NEW, 2)); // id = 5
         manager.createEpicTask(new EpicTask("Эпическая задача - 2", "Описание эпической задачи",
                 manager.getId(), TaskStatus.NEW)); // id = 6
-
     }
+
     private static void checkHistory(InMemoryTaskManager manager) {
         //Создаем записи в разном порядке в истории и выводим  4 0 2 1
 
@@ -61,6 +63,7 @@ public class Main {
         manager.deleteEpicTaskById(2);
         printHistory(manager);
     }
+
     private static void printHistory(InMemoryTaskManager manager) {
         System.out.println("\nИстория:");
         for (Task historyTask : manager.getHistoryManager().getHistory()) {
