@@ -6,33 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final HashMap<Integer, Node<Task>> historyMap = new HashMap<>();
-    private final HistoryLinkedList<Task> linkedTasks = new HistoryLinkedList<>();
+    private final HashMap<Integer, HistoryLinkedList.Node<Task>> historyMap;
+    private final HistoryLinkedList<Task> linkedTasks;
 
-    static class HistoryLinkedList<T> {
-        private Node<T> head;
-        private Node<T> tail;
-
-        public Node<T> linkLast(T addedTask) {
-            Node<T> oldTail = tail;
-            Node<T> newNode = new Node<>(oldTail, addedTask, null);
-            tail = newNode;
-            if (oldTail == null) {
-                head = newNode;
-            } else {
-                oldTail.next = newNode;
-            }
-            return newNode;
-        }
-
-        public ArrayList<T> getTasks() {
-            ArrayList<T> result = new ArrayList<>();
-
-            for (Node<T> x = head; x != null; x = x.next)
-                result.add(x.item);
-            return result;
-        }
-
+    public InMemoryHistoryManager() {
+        historyMap = new HashMap<>();
+        linkedTasks = new HistoryLinkedList<>();
     }
 
     @Override
@@ -49,34 +28,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(int id) {
         if (historyMap.containsKey(id)) {
-            removeNode(historyMap.get(id));
+            linkedTasks.removeNode(historyMap.get(id));
             historyMap.remove(id);
         }
     }
 
-    public void removeNode(Node<Task> node) {
-        Node<Task> prevNode = node.prev;
-        Node<Task> nextNode = node.next;
 
-        if (nextNode == null && prevNode == null) {
-            linkedTasks.tail = null;
-            linkedTasks.head = null;
-            return;
-        }
-
-        if (nextNode == null) {
-            linkedTasks.tail = prevNode;
-            prevNode.next = null;
-            return;
-        }
-
-        if (prevNode == null) {
-            linkedTasks.head = nextNode;
-            nextNode.prev = null;
-            return;
-        }
-
-        prevNode.next = nextNode;
-        nextNode.prev = prevNode;
-    }
 }
