@@ -1,5 +1,5 @@
-import TaskManagers.*;
-import UtilityClasses.Managers;
+import taskmanagers.*;
+import utility.Managers;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
