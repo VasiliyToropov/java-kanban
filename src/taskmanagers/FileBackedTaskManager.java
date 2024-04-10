@@ -13,21 +13,20 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     private final File file;
     private final File historyFile;
 
-    public FileBackedTaskManager() throws IOException {
-        // В дальнейшем filePath можно будет менять под любой другой путь. Для проверки себя оставил такой.
-        String filePath = "D:/tasks.csv";
+    public FileBackedTaskManager() {
+        // в filePath пишем файл из папки filesfortest
+        String filePath = "src/filesfortest/fileForTask.csv";
         file = new File(filePath);
 
         //Создаем отдельный файл для истории
-        String fileHistoryPath = "D:/history.csv";
+        String fileHistoryPath = "src/filesfortest/fileForHistory.csv";
         historyFile = new File(fileHistoryPath);
     }
 
     // Создаем запись в файл
     public void save() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            BufferedWriter historyWriter = new BufferedWriter(new FileWriter(historyFile));
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            BufferedWriter historyWriter = new BufferedWriter(new FileWriter(historyFile))) {
 
             // Записываем данные в файл со списком задач
             writer.write("id,type,name,status,description, additionalInfo\n");
@@ -52,9 +51,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             for (Task task : historyTasks) {
                 historyWriter.write(toWrite(task));
             }
-
-            writer.close();
-            historyWriter.close();
 
         } catch (IOException e) {
             try {
