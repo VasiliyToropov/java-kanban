@@ -25,7 +25,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     // Создаем запись в файл
     public void save() {
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             BufferedWriter historyWriter = new BufferedWriter(new FileWriter(historyFile))) {
 
             // Записываем данные в файл со списком задач
