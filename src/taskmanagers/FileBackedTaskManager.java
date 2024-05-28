@@ -7,6 +7,8 @@ import tasks.Task;
 import tasks.TaskStatus;
 
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FileBackedTaskManager extends InMemoryTaskManager implements TaskManager {
@@ -26,10 +28,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     // Создаем запись в файл
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            BufferedWriter historyWriter = new BufferedWriter(new FileWriter(historyFile))) {
+             BufferedWriter historyWriter = new BufferedWriter(new FileWriter(historyFile))) {
 
             // Записываем данные в файл со списком задач
-            writer.write("id,type,name,status,description, additionalInfo\n");
+            writer.write("id,type,name,status,description,additionalInfo,start time,duration\n");
 
             for (Task task : getTaskMap().values()) {
                 writer.write(toWrite(task));
@@ -44,7 +46,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             }
 
             // Записываем данные в файл для истории
-            historyWriter.write("id,type,name,status,description\n");
+            historyWriter.write("id,type,name,status,description,start time,duration\n");
 
             ArrayList<Task> historyTasks = getHistoryManager().getHistory();
 
@@ -62,7 +64,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     }
 
-    String toWrite(Task task) {
+    public String toWrite(Task task) {
         String className = task.getClass().getName().substring(6);
         String taskDesc;
 
@@ -70,10 +72,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         String name = task.getName();
         TaskStatus status = task.getTaskStatus();
         String description = task.getDescription();
+        LocalDateTime startTime = task.getStartTime();
+        Duration duration = task.getDuration();
 
 
         if (className.equals("Task")) {
-            taskDesc = id + "," + className + "," + name + "," + status + "," + description + "\n";
+            taskDesc = id + "," + className + "," + name + "," + status + "," + description + ","
+                    + startTime + "," + duration + "\n";
 
             return taskDesc;
         }
@@ -81,7 +86,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         if (className.equals("SubTask")) {
             SubTask subTask = (SubTask) task;
             int epicTaskId = subTask.getEpicTaskId();
-            taskDesc = id + "," + className + "," + name + "," + status + "," + description + "," + epicTaskId + "\n";
+            taskDesc = id + "," + className + "," + name + "," + status + "," + description + "," + epicTaskId
+                    + startTime + "," + duration + "\n";
 
             return taskDesc;
         }
@@ -95,7 +101,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 taskDesc = taskDesc.concat(subTaskId + " ");
             }
 
-            taskDesc = taskDesc.concat("\n");
+            taskDesc = taskDesc.concat(startTime + "," + duration + "\n");
 
             return taskDesc;
         }
@@ -144,7 +150,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         return null;
     }
 
-    static Task fromString(String value) {
+    public static Task fromString(String value) {
         String[] taskElements = value.split(",");
 
         int id = Integer.parseInt(taskElements[0]);
@@ -152,18 +158,21 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         String name = taskElements[2];
         TaskStatus status = TaskStatus.valueOf(taskElements[3]);
         String description = taskElements[4];
+        LocalDateTime startTime = LocalDateTime.parse(taskElements[5]);
+        long duration = Long.parseLong(taskElements[6]);
+
 
         if (taskType.equals("Task")) {
-            return new Task(name, description, id, status);
+            return new Task(name, description, id, status, startTime, duration);
         }
 
         if (taskType.equals("SubTask")) {
-            int epicTaskId = Integer.parseInt(taskElements[5]);
-            return new SubTask(name, description, id, status, epicTaskId);
+            int epicTaskId = Integer.parseInt(taskElements[7]);
+            return new SubTask(name, description, id, status, epicTaskId, startTime, duration);
         }
 
         if (taskType.equals("EpicTask")) {
-            return new EpicTask(name, description, id, status);
+            return new EpicTask(name, description, id, status, startTime, duration);
         }
 
         return null;
