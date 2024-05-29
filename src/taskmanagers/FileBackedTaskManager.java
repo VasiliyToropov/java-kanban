@@ -77,25 +77,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
 
         if (className.equals("Task")) {
-            taskDesc = id + "," + className + "," + name + "," + status + "," + description + ","
-                    + startTime + "," + duration + "\n";
+
+            taskDesc = String.format("%d,%s,%s,%s,%s,%s,%s\n", id, className, name, status, description, startTime, duration);
 
             return taskDesc;
         }
 
-        if (className.equals("SubTask")) {
-            SubTask subTask = (SubTask) task;
+        if (task instanceof SubTask subTask) {
             int epicTaskId = subTask.getEpicTaskId();
-            taskDesc = id + "," + className + "," + name + "," + status + "," + description + "," + epicTaskId
-                    + startTime + "," + duration + "\n";
 
+            taskDesc = String.format("%d,%s,%s,%s,%s,%s,%s,%s\n", id, className, name, status, description, epicTaskId, startTime, duration);
             return taskDesc;
         }
 
-        if (className.equals("EpicTask")) {
-            EpicTask epicTask = (EpicTask) task;
+        if (task instanceof EpicTask epicTask) {
             ArrayList<Integer> subTasksId = epicTask.getSubtasksId();
-            taskDesc = id + "," + className + "," + name + "," + status + "," + description + ",";
+
+            taskDesc = String.format("%d,%s,%s,%s,%s", id, className, name, status, description);
 
             for (int subTaskId : subTasksId) {
                 taskDesc = taskDesc.concat(subTaskId + " ");

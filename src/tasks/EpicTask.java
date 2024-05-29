@@ -18,14 +18,10 @@ public class EpicTask extends Task {
 
     @Override
     public String toString() {
-        return "Epic-задача{" +
-                "Название='" + this.getName() + '\'' +
-                ", Описание='" + this.getDescription() + '\'' +
-                ", id=" + this.getId() +
-                ", Статус=" + this.getTaskStatus() +
-                ", ID подзадач :" + subtasksId +
-                ", Время начала выполнения=" + this.getStartTime() +
-                ", Продолжительность=" + this.getDuration() +
-                '}';
+
+        return String.format("Epic-задача{Название='%s', Описание='%s', id='%d', Статус='%s', ID подзадач='%s', " +
+                        "Время начала выполнения='%s', Продолжительность='%s'}",
+                this.getName(), this.getDescription(), this.getId(), this.getTaskStatus(), subtasksId,
+                this.getStartTime(), this.getDuration());
     }
 }

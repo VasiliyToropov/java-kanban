@@ -376,12 +376,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public LocalDateTime getEndTime(Task task) {
-        String className = task.getClass().getName().substring(6);
+
         LocalDateTime endTime = task.getStartTime();
 
         //Если тип задачи EpicTask
-        if (className.equals("EpicTask")) {
-            EpicTask epicTask = (EpicTask) task;
+        if (task instanceof EpicTask epicTask) {
 
             // Если у эпика нет подзадач то возвращаем endTime по умолчанию
             if (epicTask.getSubtasksId().isEmpty()) {

@@ -73,14 +73,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Обычная задача{" +
-                "Название='" + name + '\'' +
-                ", Описание='" + description + '\'' +
-                ", id=" + id +
-                ", Статус=" + taskStatus +
-                ", Время начала выполнения=" + startTime +
-                ", Продолжительность=" + duration +
-                '}';
+        return String.format("Обычная задача{Название='%s', Описание='%s', id='%d', Статус='%s', " +
+                        "Время начала выполнения='%s', Продолжительность='%s'}",
+                this.getName(), this.getDescription(), this.getId(), this.getTaskStatus(), this.getStartTime(),
+                this.getDuration());
     }
 
     @Override

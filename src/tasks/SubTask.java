@@ -22,14 +22,10 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return "Подзадача{" +
-                "Название='" + this.getName() + '\'' +
-                ", Описание='" + this.getDescription() + '\'' +
-                ", id=" + this.getId() +
-                ", Статус=" + this.getTaskStatus() +
-                ", Epic-задача=" + epicTaskId +
-                ", Время начала выполнения=" + this.getStartTime() +
-                ", Продолжительность=" + this.getDuration() +
-                '}';
+
+        return String.format("Подзадача{Название='%s', Описание='%s', id='%d', Статус='%s', Epic-задача='%d', " +
+                        "Время начала выполнения='%s', Продолжительность='%s'}",
+                this.getName(), this.getDescription(), this.getId(), this.getTaskStatus(), epicTaskId,
+                this.getStartTime(), this.getDuration());
     }
 }
