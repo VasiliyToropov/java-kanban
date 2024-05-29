@@ -1,6 +1,10 @@
 package taskmanagers;
 
-import tasks.*;
+import tasks.EpicTask;
+import tasks.SubTask;
+import tasks.Task;
+import tasks.TaskStatus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,11 +21,11 @@ public interface TaskManager {
 
     void createEpicTask(EpicTask epicTask);
 
-    ArrayList<Task> printAllTasks();
+    ArrayList<Task> getAllTasks();
 
-    ArrayList<EpicTask> printAllEpicTasks();
+    ArrayList<EpicTask> getAllEpicTasks();
 
-    ArrayList<SubTask> printAllSubtasks();
+    ArrayList<SubTask> getAllSubtasks();
 
     void deleteAllTasks();
 

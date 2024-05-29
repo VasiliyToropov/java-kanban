@@ -1,4 +1,1 @@
-id,type,name,status,description
-0,Task,Обычная задача - 1,NEW,Описание обычной задачи
-3,Task,Обычная задача - 1,NEW,Описание обычной задачи
-4,EpicTask,Эпическая задача - 1,NEW,Описание эпической задачи,5 6 
+id,type,name,status,description,start time,duration
