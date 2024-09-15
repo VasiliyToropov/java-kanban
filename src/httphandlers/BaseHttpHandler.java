@@ -3,8 +3,8 @@ package httphandlers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
-import jsonAdapters.DurationAdapter;
-import jsonAdapters.LocalDateTimeAdapter;
+import jsonadapters.DurationAdapter;
+import jsonadapters.LocalDateTimeAdapter;
 import taskmanagers.TaskManager;
 
 import java.io.*;
