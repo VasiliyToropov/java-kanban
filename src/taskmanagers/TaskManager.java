@@ -1,5 +1,6 @@
 package taskmanagers;
 
+import historymanagers.HistoryManager;
 import tasks.EpicTask;
 import tasks.SubTask;
 import tasks.Task;
@@ -7,6 +8,7 @@ import tasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public interface TaskManager {
     Task getTaskById(Integer id);
@@ -58,4 +60,8 @@ public interface TaskManager {
     HashMap<Integer, SubTask> getSubTaskMap();
 
     HashMap<Integer, EpicTask> getEpicTaskMap();
+
+    public Set<Task> getPrioritizedTasks();
+
+    public HistoryManager getHistoryManager();
 }

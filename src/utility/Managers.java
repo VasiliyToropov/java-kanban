@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Managers {
     public static TaskManager getDefault() throws IOException {
-        return new FileBackedTaskManager();
+        return new InMemoryTaskManager();
     }
 
     public static HistoryManager getDefaultHistory() {
