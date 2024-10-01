@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import taskmanagers.FileBackedTaskManager;
+import taskmanagers.InMemoryTaskManager;
 import taskmanagers.TaskManager;
 import utility.Managers;
 
@@ -12,7 +13,7 @@ public class ManagersTest {
     @Test
     public void shouldGetBackTaskManagerObject() throws IOException {
         TaskManager taskManager = Managers.getDefault();
-        FileBackedTaskManager taskManagerExpected = new FileBackedTaskManager();
+        InMemoryTaskManager taskManagerExpected = new InMemoryTaskManager();
 
         assertEquals(taskManagerExpected.getClass(), taskManager.getClass(),
                 "Не возвращает нужный класс менеджера");
